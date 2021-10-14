@@ -136,6 +136,18 @@ class RegressionModels:
             y_pred = self.random_forest_regression_predict([list_of_values])
         return {"prediction": y_pred, "best_regression_model": best_regression_model, "accuracy": best_regression_model_accuracy}
 
-regression = RegressionModels('./Data.csv')
+regression = RegressionModels('./data_examples/Data.csv')
 regression.preprocessing()
-print(regression.predict_with_best_regression_model([28.66, 77.95, 1009.59, 69.07]))
+prediction = regression.predict_with_best_regression_model([28.66, 77.95, 1009.59, 69.07])
+support = regression.support_vector_regression_score()
+
+print("Best Classification Model: " + prediction["best_regression_model"])
+print("Accuracy: " + str(prediction["accuracy"]))
+print("Prediction: " + str(prediction["prediction"]))
+print("---------------------------------------------")
+print("Models Accuracy:")
+print("multiple_linear_regression: " + str(regression.multiple_linear_regression_score()))
+print("polynomial_regression: " + str(regression.polynomial_regression_score()))
+print("support_vector_regression: " + str(support))
+print("decision_tree_regression: " + str(regression.decision_tree_regression_score()))
+print("random_forest_regression: " + str(regression.random_forest_regression_score()))
