@@ -18,7 +18,6 @@ class RegressionModels:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
 
 
-
     def multiple_linear_regression_train(self):
         regressor = LinearRegression()
         regressor.fit(self.X_train, self.y_train)
@@ -136,12 +135,13 @@ class RegressionModels:
             y_pred = self.random_forest_regression_predict([list_of_values])
         return {"prediction": y_pred, "best_regression_model": best_regression_model, "accuracy": best_regression_model_accuracy}
 
+
 regression = RegressionModels('./data_examples/Data.csv')
 regression.preprocessing()
 prediction = regression.predict_with_best_regression_model([28.66, 77.95, 1009.59, 69.07])
 support = regression.support_vector_regression_score()
 
-print("Best Classification Model: " + prediction["best_regression_model"])
+print("Best Regression Model: " + prediction["best_regression_model"])
 print("Accuracy: " + str(prediction["accuracy"]))
 print("Prediction: " + str(prediction["prediction"]))
 print("---------------------------------------------")

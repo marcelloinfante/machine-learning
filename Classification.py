@@ -173,8 +173,8 @@ class ClassificationModels:
         return accuracy
 
 
-    def select_best_regression_model(self):
-        regression_models = {
+    def select_best_classification_model(self):
+        classification_models = {
             'logistic_regression' : self.logistic_regression_score(),
             'kernel_svm' : self.kernel_svm_score(),
             'k_nearest_neighbors' : self.k_nearest_neighbors_score(),
@@ -183,35 +183,35 @@ class ClassificationModels:
             'decision_tree_classification' : self.decision_tree_classification_score(),
             'random_forest_classification' : self.random_forest_classification_score()
         }
-        best_regression_model = max(regression_models, key=regression_models.get)
-        return {"best_regression_model": best_regression_model, "accuracy": regression_models[best_regression_model]}
+        best_classification_model = max(classification_models, key=classification_models.get)
+        return {"best_classification_model": best_classification_model, "accuracy": classification_models[best_classification_model]}
 
 
-    def predict_with_best_regression_model(self, list_of_values):
-        selected_regression_models = self.select_best_regression_model()
-        best_regression_model = selected_regression_models["best_regression_model"]
-        best_regression_model_accuracy = selected_regression_models["accuracy"]
-        if best_regression_model == 'logistic_regression':
+    def predict_with_best_classification_model(self, list_of_values):
+        selected_classification_models = self.select_best_classification_model()
+        best_classification_model = selected_classification_models["best_classification_model"]
+        best_classification_model_accuracy = selected_classification_models["accuracy"]
+        if best_classification_model == 'logistic_regression':
             y_pred = self.logistic_regression_predict([list_of_values])
-        elif best_regression_model == 'kernel_svm':
+        elif best_classification_model == 'kernel_svm':
             y_pred = self.kernel_svm_predict([list_of_values])
-        elif best_regression_model == 'k_nearest_neighbors':
+        elif best_classification_model == 'k_nearest_neighbors':
             y_pred = self.k_nearest_neighbors_predict([list_of_values])
-        elif best_regression_model == 'support_vector_machine':
+        elif best_classification_model == 'support_vector_machine':
             y_pred = self.support_vector_machine_predict([list_of_values])
-        elif best_regression_model == 'naive_bayes':
+        elif best_classification_model == 'naive_bayes':
             y_pred = self.naive_bayes_predict([list_of_values])
-        elif best_regression_model == 'decision_tree_classification':
+        elif best_classification_model == 'decision_tree_classification':
             y_pred = self.decision_tree_classification_predict([list_of_values])
-        elif best_regression_model == 'random_forest_classification':
+        elif best_classification_model == 'random_forest_classification':
             y_pred = self.random_forest_classification_predict([list_of_values])
-        return {"prediction": y_pred, "best_regression_model": best_regression_model, "accuracy": best_regression_model_accuracy}
+        return {"prediction": y_pred, "best_classification_model": best_classification_model, "accuracy": best_classification_model_accuracy}
 
 
 classification = ClassificationModels('./data_examples/Data_classification.csv')
 classification.preprocessing()
-prediction = classification.predict_with_best_regression_model([1173347, 1, 1, 1, 1, 2, 5, 1, 1, 1])
-print("Best Classification Model: " + prediction["best_regression_model"])
+prediction = classification.predict_with_best_classification_model([1173347, 1, 1, 1, 1, 2, 5, 1, 1, 1])
+print("Best Classification Model: " + prediction["best_classification_model"])
 print("Accuracy: " + str(prediction["accuracy"]))
 print("Prediction: " + str(prediction["prediction"]))
 print("---------------------------------------------")
